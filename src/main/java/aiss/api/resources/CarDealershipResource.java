@@ -26,7 +26,7 @@ import aiss.model.repository.CarDealershipRepository;
 import aiss.model.repository.MapCarDealershipRepository;
 
 
-
+@Path("/carDealerships")
 public class CarDealershipResource {
 	
 	/* Singleton */
