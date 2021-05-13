@@ -118,68 +118,69 @@ public class MapCarDealershipRepository implements CarDealershipRepository{
 
 	@Override
 	public CarDealership getCarDealership(String id) {
-		return playlistMap.get(id);
+		return carDealershipMap.get(id);
 	}
 	
 	@Override
-	public void updatePlaylist(Playlist p) {
-		playlistMap.put(p.getId(),p);
+	public void updateCarDealership(CarDealership p) {
+		carDealershipMap.put(p.getId(),p);
 	}
 
 	@Override
-	public void deletePlaylist(String id) {	
-		playlistMap.remove(id);
+	public void deleteCarDealership(String id) {	
+		carDealershipMap.remove(id);
 	}
 	
 
 	@Override
-	public void addSong(String playlistId, String songId) {
-		Playlist playlist = getPlaylist(playlistId);
-		playlist.addSong(songMap.get(songId));
+	public void addCar(String carDealershipId, String carId) {
+		CarDealership carDealership = getCarDealership(carDealershipId);
+		carDealership.addCar(carMap.get(carId));
 	}
 
 	@Override
-	public Collection<Song> getAll(String playlistId) {
-		return getPlaylist(playlistId).getSongs();
+	public Collection<Car> getAll(String carDealershipId) {
+		return getCarDealership(carDealershipId).getCars();
 	}
 
 	@Override
-	public void removeSong(String playlistId, String songId) {
-		getPlaylist(playlistId).deleteSong(songId);
+	public void removeCar(String carDealershipId, String carId) {
+		getCarDealership(carDealershipId).deleteCar(carId);
 	}
 
 	
 	// Song related operations
 	
 	@Override
-	public void addSong(Song s) {
-		String id = "s" + index++;
-		s.setId(id);
-		songMap.put(id, s);
+	public void addCar(Car c) {
+		String id = "c" + index++;
+		c.setId(id);
+		carMap.put(id, c);
 	}
 	
 	@Override
-	public Collection<Song> getAllSongs() {
-			return songMap.values();
+	public Collection<Car> getAllCars() {
+			return carMap.values();
 	}
 
 	@Override
-	public Song getSong(String songId) {
-		return songMap.get(songId);
+	public Car getCar(String carId) {
+		return carMap.get(carId);
 	}
 
 	@Override
-	public void updateSong(Song s) {
-		Song song = songMap.get(s.getId());
-		song.setTitle(s.getTitle());
-		song.setAlbum(s.getAlbum());
-		song.setArtist(s.getArtist());
-		song.setYear(s.getYear());
+	public void updateCar(Car c) {
+		Car car = carMap.get(c.getId());
+		car.setBrand(c.getBrand());
+		car.setColour(c.getColour());
+		car.setLicensePlate(c.getLicensePlate());
+		car.setYear(c.getYear());
+		car.setModel(c.getModel());
 	}
 
 	@Override
-	public void deleteSong(String songId) {
-		songMap.remove(songId);
+	public void deleteCar(String carId) {
+		carMap.remove(carId);
 	}
 	
 }
