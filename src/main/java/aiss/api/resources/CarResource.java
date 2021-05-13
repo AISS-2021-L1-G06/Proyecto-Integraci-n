@@ -13,6 +13,10 @@ import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.spi.BadRequestException;
 
+import aiss.model.Car;
+import aiss.model.repository.CarDealershipRepository;
+import aiss.model.repository.MapCarDealershipRepository;
+
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriBuilder;
@@ -26,20 +30,20 @@ import java.util.Collection;
 
 
 
-@Path("/songs")
+@Path("/cars")
 public class CarResource {
 
 	public static CarResource _instance=null;
-	PlaylistRepository repository;
+	CarDealershipRepository repository;
 	
 	private CarResource(){
-		repository=MapPlaylistRepository.getInstance();
+		repository=MapCarDealershipRepository.getInstance();
 	}
 	
 	public static CarResource getInstance()
 	{
 		if(_instance==null)
-			_instance=new SongResource();
+			_instance=new CarResource();
 		return _instance; 
 	}
 	
@@ -47,19 +51,19 @@ public class CarResource {
 	@Produces("application/json")
 	public Collection<Car> getAll()
 	{
-		return repository.getAllSongs();
+		return repository.getAllCars();
 	}
 	
 	
 	@GET
 	@Path("/{id}")
 	@Produces("application/json")
-	public Car get(@PathParam("id") String songId) throws NotFoundException
+	public Car get(@PathParam("id") String carId) throws NotFoundException
 	{
-		Car s = repository.getSong(songId);
+		Car s = repository.getCar(carId);
 		
 		if(s == null) {
-			throw new NotFoundException("The song with id="+ songId +" was not found");
+			throw new NotFoundException("The song with id="+ carId +" was not found");
 		}
 		
 		return s;
@@ -68,22 +72,22 @@ public class CarResource {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addSong(@Context UriInfo uriInfo, Song song) {
+	public Response addSong(@Context UriInfo uriInfo, Car car) {
 		
-		if(song.getTitle()==null || "".equals(song.getTitle())) {
+		if(car.getModel()==null || "".equals(car.getModel())) {
 			throw new BadRequestException("El nombre de la cancion no puede ser null");
 		}
 		
-		repository.addSong(song);
+		repository.addCar(car);
 		
 		//Builds the response. Returns the song that has been added.
 		ResponseBuilder resp = null;
 		try {
-			resp = Response.created(new URI("/songs/"+song.getId()));
+			resp = Response.created(new URI("/cars/"+car.getId()));
 		}catch(URISyntaxException e){
 			e.printStackTrace();
 		}
-		resp.entity(song);
+		resp.entity(car);
 		return resp.build();
 		
 	}
@@ -91,27 +95,30 @@ public class CarResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateSong(Song song) throws NotFoundException {
+	public Response updateSong(Car car) throws NotFoundException {
 		
-		Song oldSong = repository.getSong(song.getId());
+		Car oldCar = repository.getCar(car.getId());
 		
-		if(oldSong==null) {
-			throw new NotFoundException("The song with id="+song.getId()+" was not found");
+		if(oldCar==null) {
+			throw new NotFoundException("The car with id="+car.getId()+" was not found");
 		}
-		if(song.getTitle()!=null) {
-			oldSong.setTitle(song.getTitle());
+		if(car.getModel()!=null) {
+			oldCar.setModel(car.getModel());
 		}
-		if(song.getAlbum()!=null) {
-			oldSong.setAlbum(song.getAlbum());
+		if(car.getBrand()!=null) {
+			oldCar.setBrand(car.getBrand());
 		}
-		if(song.getArtist()!=null) {
-			oldSong.setArtist(song.getArtist());
+		if(car.getColour()!=null) {
+			oldCar.setColour(car.getColour());
 		}
-		if(song.getYear()!=null) {
-			oldSong.setYear(song.getYear());
+		if(car.getLicensePlate()!=null) {
+			oldCar.setLicensePlate(car.getLicensePlate());
 		}
-		if(song.getId()!=null) {
-			oldSong.setId(song.getId());
+		if(car.getYear()!=null) {
+			oldCar.setYear(car.getYear());
+		}
+		if(car.getId()!=null) {
+			oldCar.setId(car.getId());
 		}
 		
 		return Response.noContent().build();
@@ -119,14 +126,14 @@ public class CarResource {
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeSong(@PathParam("id") String songId) throws NotFoundException {
+	public Response removeSong(@PathParam("id") String carId) throws NotFoundException {
 		
-		Song toberemoved=repository.getSong(songId);
+		Car toberemoved=repository.getCar(carId);
 		if(toberemoved == null) {
-			throw new NotFoundException("The song with id="+songId+" was not found");
+			throw new NotFoundException("The song with id="+carId+" was not found");
 		}
 		else {
-			repository.deleteSong(songId);
+			repository.deleteCar(carId);
 		}
 		return Response.noContent().build();
 	}
