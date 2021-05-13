@@ -91,7 +91,7 @@ public class CarDealershipResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updatePlaylist(CarDealership carDealership) {
+	public Response updateCarDealership(CarDealership carDealership) {
 		CarDealership oldCardDealership = repository.getCarDealership(carDealership.getId());
 		if (oldCardDealership == null) {
 			throw new NotFoundException("The playlist with id="+ carDealership.getId() +" was not found");			
@@ -117,7 +117,7 @@ public class CarDealershipResource {
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removePlaylist(@PathParam("id") String id) {
+	public Response removeCarDealership(@PathParam("id") String id) {
 		CarDealership toberemoved=repository.getCarDealership(id);
 		if (toberemoved == null)
 			throw new NotFoundException("The car dealership with id="+ id +" was not found");
@@ -132,7 +132,7 @@ public class CarDealershipResource {
 	@Path("/{carDealershipId}/{carId}")
 	@Consumes("text/plain")
 	@Produces("application/json")
-	public Response addSong(@Context UriInfo uriInfo,@PathParam("carDealershipId") String carDealershipId, @PathParam("carId") String carId)
+	public Response addCar(@Context UriInfo uriInfo,@PathParam("carDealershipId") String carDealershipId, @PathParam("carId") String carId)
 	{				
 		
 		CarDealership carDealership = repository.getCarDealership(carDealershipId);

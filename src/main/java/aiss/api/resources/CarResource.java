@@ -72,7 +72,7 @@ public class CarResource {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response addSong(@Context UriInfo uriInfo, Car car) {
+	public Response addCar(@Context UriInfo uriInfo, Car car) {
 		
 		if(car.getModel()==null || "".equals(car.getModel())) {
 			throw new BadRequestException("El nombre de la cancion no puede ser null");
@@ -95,7 +95,7 @@ public class CarResource {
 	
 	@PUT
 	@Consumes("application/json")
-	public Response updateSong(Car car) throws NotFoundException {
+	public Response updateCar(Car car) throws NotFoundException {
 		
 		Car oldCar = repository.getCar(car.getId());
 		
@@ -126,7 +126,7 @@ public class CarResource {
 	
 	@DELETE
 	@Path("/{id}")
-	public Response removeSong(@PathParam("id") String carId) throws NotFoundException {
+	public Response removeCar(@PathParam("id") String carId) throws NotFoundException {
 		
 		Car toberemoved=repository.getCar(carId);
 		if(toberemoved == null) {
