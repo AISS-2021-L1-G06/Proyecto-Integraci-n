@@ -1,7 +1,11 @@
 package aiss.api.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -11,6 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
@@ -24,9 +29,11 @@ import aiss.model.Car;
 import aiss.model.CarDealership;
 import aiss.model.repository.CarDealershipRepository;
 import aiss.model.repository.MapCarDealershipRepository;
+import comparator.ComparatorNameCarDealership;
+import comparator.ComparatorNameCarDealershipReversed;
 
 
-@Path("/carDealerships")
+@Path("/carDealership")
 public class CarDealershipResource {
 	
 	/* Singleton */
@@ -46,11 +53,59 @@ public class CarDealershipResource {
 	}
 	
 
+//	@GET
+//	@Produces("application/json")
+//	public Collection<CarDealership> getAll()
+//	{
+//		return repository.getAllCarDealerships();
+//	}
+	
 	@GET
 	@Produces("application/json")
-	public Collection<CarDealership> getAll()
-	{
-		return repository.getAllCarDealerships();
+	public Collection<CarDealership> getAll
+		(@QueryParam("isEmpty")Boolean isEmpty,
+			@QueryParam("name")String name,
+			@QueryParam("city")String city,
+			@QueryParam("postalCode")String code,
+			@QueryParam("order")String order,
+			@QueryParam("limit")Integer limit) {
+
+		List<CarDealership> res = new ArrayList<>();
+		for(CarDealership carDealership: repository.getAllCarDealerships()) {
+
+			if((name==null || name.equals(carDealership.getName())) &&	//FILTROS (NO ENUMERADOS)
+					(city==null || city.equals(carDealership.getCity()))&&		
+					(code==null || code.equals(carDealership.getPostalCode())))	{
+
+				if(isEmpty==null ||//FILTRO (ENUMERADO) 
+						(isEmpty&&(carDealership.getCars() == null || carDealership.getCars().size()==0)) ||
+						(!isEmpty&&(carDealership.getCars() != null || carDealership.getCars().size()>0))) {
+					res.add(carDealership);
+				}
+				
+			}
+			
+			
+			if(limit!=null) {
+				res = res.stream().limit(limit).collect(Collectors.toList());
+			}
+			
+			
+
+			if(order != null) {
+				if(order.equals("name")) {
+					Collections.sort(res, new ComparatorNameCarDealership());
+				}else if(order.equals("-name")) {
+					Collections.sort(res, new ComparatorNameCarDealershipReversed());
+				}else {
+					throw new BadRequestException("The order parameter must be name or -name");
+				}
+
+
+			}
+
+		}
+		return res;
 	}
 	
 	
@@ -104,7 +159,7 @@ public class CarDealershipResource {
 		if (carDealership.getName()!=null)
 			oldCardDealership.setName(carDealership.getName());
 		
-		// Update description
+		// Update city
 		if (carDealership.getCity()!=null)
 			oldCardDealership.setCity(carDealership.getCity());
 		
