@@ -9,8 +9,7 @@ public class Car {
 	private String year;
 	private String colour;
 
-	public Car() {
-	}
+	public Car() {}
 
 	public Car(String brand, String model, String licensePlate, String year, String colour) {
 		this.brand = brand;
