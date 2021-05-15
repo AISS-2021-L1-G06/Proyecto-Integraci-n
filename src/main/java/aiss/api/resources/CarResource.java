@@ -61,7 +61,7 @@ public class CarResource {
 		return repository.getAllCars();
 	}*/
 	
-	//OBTIENE TODOS LOS PILOTOS
+	//OBTIENE TODOS LOS COCHES
 		@GET
 		@Produces("application/json")
 		public Collection<Car> getAll
