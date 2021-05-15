@@ -7,6 +7,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -16,6 +17,8 @@ import org.jboss.resteasy.spi.BadRequestException;
 import aiss.model.Car;
 import aiss.model.repository.CarDealershipRepository;
 import aiss.model.repository.MapCarDealershipRepository;
+import comparator.ComparatorNameCarDealership;
+import comparator.ComparatorNameCarDealershipReversed;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
@@ -26,7 +29,11 @@ import javassist.NotFoundException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 
@@ -47,12 +54,72 @@ public class CarResource {
 		return _instance; 
 	}
 	
-	@GET
+	/*@GET
 	@Produces("application/json")
 	public Collection<Car> getAll()
 	{
 		return repository.getAllCars();
-	}
+	}*/
+	
+	//OBTIENE TODOS LOS PILOTOS
+		@GET
+		@Produces("application/json")
+		public Collection<Car> getAll
+		(@QueryParam("order") String order,
+				@QueryParam("isEmpty")Boolean isEmpty,
+				@QueryParam("brand")String brand,
+				@QueryParam("model")String model,
+				@QueryParam("licensePlate")String licensePlate ,
+				@QueryParam("year")String year, 
+				@QueryParam("colour")String colour,
+				@QueryParam("limit")Integer limit,
+				@QueryParam("offset")Integer offset) {
+
+			List<Car> result = new ArrayList<Car>();
+			for(Car car: repository.getAllCars()) {
+
+				if((model==null || model.equals(car.getModel())) &&	
+						(brand==null || brand.equals(car.getBrand())) &&		
+						(year==null || year.equals(car.getYear()))&&		
+						(licensePlate==null || licensePlate.equals(car.getLicensePlate())) &&
+						(colour == null || colour.equals(car.getColour()))) {
+
+					result.add(car);
+
+
+				}
+				
+				if(offset!=null && offset>0) {
+					for (int i= offset; i< result.size(); i++) {
+						Car c = result.get(i);
+						result.removeAll(result);
+						result.add(c);
+						
+					}
+
+
+				}
+
+				if(limit!=null) {
+					result = result.stream().limit(limit).collect(Collectors.toList());
+				}
+
+
+
+
+				/*if(order != null) {
+					if(order.equals("brand")) {
+						Collections.sort(result, new ComparatorNameCarDealership());
+					}else if(order.equals("-name")) {
+						Collections.sort(result, new ComparatorNameCarDealershipReversed());
+					}else {
+						throw new BadRequestException("The order parameter must be brand or -brand");
+					}
+				}*/
+
+			}
+			return result;
+		}
 	
 	
 	@GET
