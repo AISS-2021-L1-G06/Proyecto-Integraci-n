@@ -336,7 +336,7 @@ components:
       properties:
         id:
           type: string
-        branch:
+        brand:
           type: string
         model:
           type: string
