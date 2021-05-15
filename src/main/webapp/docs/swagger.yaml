@@ -1,0 +1,384 @@
+openapi: 3.0.0
+servers:
+  - url: http://localhost:8090/api
+    description: Servidor de desarrollo local
+info:
+  description: Una api para la gestión de compra y venta de automóviles en los concesionarios
+  version: 1.0.0
+  title: API de coches para el Proyecto Integración AISS
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+tags:
+  - name: cars
+    description: Cars
+  - name: carDealerships
+    description: CarDealerships
+paths:
+  /cars:
+    get:
+      tags:
+        - cars
+      summary: Consultar todos los coches
+      description: Consultar todos los coches
+      operationId: getAllCars
+      parameters:
+        - name: order
+          in: query
+          description: Ordena los resultados por marca
+          required: false
+          schema:
+            type: string
+            enum:
+              - brand
+              - '-brand'
+        - name: q
+          in: query
+          description: Consulta para filtrar
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description:  MMáximo número de resultados
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+        - name: offset
+          in: query
+          description: Offset de los resultados
+          required: false
+          schema:
+            type: integer
+            format: int32
+            minimum: 0
+      responses:
+        '200':
+          description: OK, aquí tienes todos los coches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: Petición inválida
+    post:
+      tags:
+        - cars
+      summary: Crear un nuevo coche
+      description: Crear un nuevo coche
+      operationId: addCar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+        description: Coche a crear
+        required: true
+      responses:
+        '201':
+          description: Coche creado con éxito
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        '400':
+          description: Petición inválida
+    put:
+      tags:
+          - cars
+      summary: Actualiza un coche.
+      description: Actualiza un coche.
+      operationId: updateCar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+        description: Coche a actualizar
+      responses:
+        '204':
+          description: Coche actualizado con éxito
+        '400':
+          description: Petición inválida
+        '404':
+          description: Coche no encontrado en la base de datos
+  '/cars/{id}':
+    get:
+      tags:
+        - cars
+      summary: Consultar un coche específico
+      description: Consultar un coche específico
+      operationId: getCar
+      parameters:
+        - name: id
+          in: path
+          description: Id del coche
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK, aquí tienes tu coche.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+        "404": 
+          description: Coche no encontrado en nuestra base de datos
+    delete:
+      tags:
+        - cars
+      summary: Borrar un coche
+      description: Borrar un coche
+      operationId: removeCar
+      parameters:
+        - name: id
+          in: path
+          description: Id del coche
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Coche borrado 
+        '404':
+          description: Coche no encontrado
+  /carDealership:
+    get:
+      tags:
+        - carDealership
+      summary: Consultar todos los concesionarios.
+      description: Consultar todos los concensionarios.
+      operationId: getAllCarDealerships
+      parameters:
+        - name: order
+          in: query
+          description: Ordena resultados por nombre
+          required: false
+          schema:
+            type: string
+            enum:
+              - name
+              - '-name'
+        - name: isEmpty
+          in: query
+          description: Filtra los concesionarios sin coches
+          required: false
+          schema:
+            type: boolean
+        - name: name
+          in: query
+          description: Filtra los concesionarios por nombre
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK aquí tienes todos los concesionarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDealership'
+        '400':
+          description: Petición inválida
+    post:
+      tags:
+      - carDealership
+      summary: Añadir un concesionario nuevo.
+      description: Añadir un concesionario nuevo.
+      operationId: addCarDealership
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarDealership'
+        description: Concesionario creado
+      responses:
+        '201':
+          description: Concesionario creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDealership'
+        '400':
+          description: Petición inválida
+    put:
+      tags:
+        - carDealership
+      summary: Actualiza un concesionario.
+      description: Actualiza un concesionario.
+      operationId: updateCarDealership
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarDealership'
+        description: Concesionario a actualizar
+      responses:
+        '204':
+          description: Concesionario actualizado con éxito
+        '400':
+          description: Petición inválida
+        '404':
+          description: Concesionario no encontrado en la base de datos
+  '/carDealership/{id}':
+    get:
+      tags:
+        - carDealership
+      summary: Consulta un concesionario en concreto.
+      description: Consulta un concesionario en concreto.
+      operationId: getCarDealership
+      parameters:
+        - name: id
+          in: path
+          description: Id del concesionario
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK, este es tu concesionario.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDealership'
+        '404':
+          description: concesionario no encontrado
+    delete:
+      tags:
+        - carDealership
+      summary: Eliminar concesionario.
+      description: Eliminar concesionario.
+      operationId: deleteCarDealership
+      parameters:
+        - name: id
+          in: path
+          description: id de concesionario.
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+            description: ¡Coche eliminado de concesionario!
+        '404':
+          description: Concesionario no encontrado en la base de datos.
+  '/carDealership/{carDealershipId}/{carId}':
+    post:
+      tags:
+        - carDealership
+      summary: Añadir un coche a un concesionario.
+      description: Añadir un coche a un concesionario.
+      operationId: addCarToDealership
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      parameters:
+        - name: carDealershipId
+          in: path
+          description: id del concesionario
+          required: true
+          schema:
+            type: string
+        - name: carId
+          in: path
+          description: id del coche
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: ¡Coche añadido a concesionario!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarDealership'
+        '400':
+          description: Bad request
+        '404':
+          description: Coche o concesionario no encontrados.
+    delete:
+      tags:
+        - carDealership
+      summary: Eliminar coche de concesionario.
+      description: Eliminar coche de concesionario.
+      operationId: deleteCarFromCarDealership
+      parameters:
+        - name: carDealershipId
+          in: path
+          description: id de concesionario.
+          required: true
+          schema:
+            type: string
+        - name: carId
+          in: path
+          description: id del coche.
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+            description: ¡Coche eliminado del concesionario!
+        '404':
+          description: Coche o concesionario no encontrados.
+components:
+  schemas:
+    Car:
+      type: object
+      required:
+        - licensePlate
+      properties:
+        id:
+          type: string
+        branch:
+          type: string
+        model:
+          type: string
+        licensePlate:
+          type: string
+        year:
+          type: string
+        colour:
+          type: string
+      example:
+        id: c1
+        branch: Seat
+        model: Ibiza
+        licensePlate: '3003FML'
+        year: '2015'
+        colour: blanco
+    CarDealership:
+      type: object
+      required: 
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        city:
+          type: string
+        postalCode:
+          type: string
+        cars:
+          type: array
+          items:
+            $ref: '#/components/schemas/Car'
+      example:
+        id: cd1
+        name: Concesionario Pino Montano
+        city: Sevilla
+        postalCode: '41015'
+        cars:
+          - id: c1
+            branch: Seat
+            model: Ibiza
+            licensePlate: '3003FML'
+            year: '2015'
+            colour: blanco
