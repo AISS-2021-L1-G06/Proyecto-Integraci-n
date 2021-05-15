@@ -348,7 +348,7 @@ components:
           type: string
       example:
         id: c1
-        branch: Seat
+        brand: Seat
         model: Ibiza
         licensePlate: '3003FML'
         year: '2015'
@@ -377,7 +377,7 @@ components:
         postalCode: '41015'
         cars:
           - id: c1
-            branch: Seat
+            brand: Seat
             model: Ibiza
             licensePlate: '3003FML'
             year: '2015'
