@@ -63,7 +63,7 @@ public class CarResource {
 		Car s = repository.getCar(carId);
 		
 		if(s == null) {
-			throw new NotFoundException("The song with id="+ carId +" was not found");
+			throw new NotFoundException("The car with id="+ carId +" was not found");
 		}
 		
 		return s;
@@ -75,12 +75,12 @@ public class CarResource {
 	public Response addCar(@Context UriInfo uriInfo, Car car) {
 		
 		if(car.getModel()==null || "".equals(car.getModel())) {
-			throw new BadRequestException("El nombre de la cancion no puede ser null");
+			throw new BadRequestException("El nombre del coche no puede ser null");
 		}
 		
 		repository.addCar(car);
 		
-		//Builds the response. Returns the song that has been added.
+		//Builds the response. Returns the car that has been added.
 		ResponseBuilder resp = null;
 		try {
 			resp = Response.created(new URI("/cars/"+car.getId()));
@@ -130,7 +130,7 @@ public class CarResource {
 		
 		Car toberemoved=repository.getCar(carId);
 		if(toberemoved == null) {
-			throw new NotFoundException("The song with id="+carId+" was not found");
+			throw new NotFoundException("The car with id="+carId+" was not found");
 		}
 		else {
 			repository.deleteCar(carId);

@@ -117,7 +117,7 @@ public class CarDealershipResource {
 		CarDealership list = repository.getCarDealership(id);
 		
 		if (list == null) {
-			throw new NotFoundException("The playlist with id="+ id +" was not found");			
+			throw new NotFoundException("The car dealership with id="+ id +" was not found");			
 		}
 		
 		return list;
@@ -135,7 +135,7 @@ public class CarDealershipResource {
 
 		repository.addCarDealership(carDealership);
 
-		// Builds the response. Returns the playlist the has just been added.
+		// Builds the response. Returns the car dealership the has just been added.
 		UriBuilder ub = uriInfo.getAbsolutePathBuilder().path(this.getClass(), "get");
 		URI uri = ub.build(carDealership.getId());
 		ResponseBuilder resp = Response.created(uri);
@@ -149,7 +149,7 @@ public class CarDealershipResource {
 	public Response updateCarDealership(CarDealership carDealership) {
 		CarDealership oldCardDealership = repository.getCarDealership(carDealership.getId());
 		if (oldCardDealership == null) {
-			throw new NotFoundException("The playlist with id="+ carDealership.getId() +" was not found");			
+			throw new NotFoundException("The car dealership with id="+ carDealership.getId() +" was not found");			
 		}
 		
 		if (carDealership.getCars()!=null)
@@ -230,5 +230,7 @@ public class CarDealershipResource {
 		
 		return Response.noContent().build();
 	}
+	
+	
 
 }
