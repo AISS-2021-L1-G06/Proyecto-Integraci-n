@@ -15,8 +15,8 @@ info:
 tags:
   - name: cars
     description: Cars
-  - name: carDealerships
-    description: CarDealerships
+  - name: carDealership
+    description: CarDealership
 paths:
   /cars:
     get:
@@ -347,7 +347,6 @@ components:
         colour:
           type: string
       example:
-        id: c1
         brand: Seat
         model: Ibiza
         licensePlate: '3003FML'
@@ -371,13 +370,11 @@ components:
           items:
             $ref: '#/components/schemas/Car'
       example:
-        id: cd1
         name: Concesionario Pino Montano
         city: Sevilla
         postalCode: '41015'
         cars:
-          - id: c1
-            brand: Seat
+          - brand: Seat
             model: Ibiza
             licensePlate: '3003FML'
             year: '2015'
