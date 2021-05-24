@@ -347,6 +347,7 @@ components:
         colour:
           type: string
       example:
+        id: c0
         brand: Seat
         model: Ibiza
         licensePlate: '3003FML'
@@ -370,11 +371,13 @@ components:
           items:
             $ref: '#/components/schemas/Car'
       example:
+        id: cd5
         name: Concesionario Pino Montano
         city: Sevilla
         postalCode: '41015'
         cars:
-          - brand: Seat
+          - id: c0
+            brand: Seat
             model: Ibiza
             licensePlate: '3003FML'
             year: '2015'
