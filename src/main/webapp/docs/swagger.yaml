@@ -1,7 +1,9 @@
 openapi: 3.0.0
-servers:
-  - url: http://localhost:8090/api
+servers: 
+  - url: http://localhost:8090/
     description: Servidor de desarrollo local
+  - url: https://proyecto-integracion-313811.appspot.com/
+    description: Servidor app engine
 info:
   description: Una api para la gestión de compra y venta de automóviles en los concesionarios
   version: 1.0.0
