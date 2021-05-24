@@ -1,5 +1,5 @@
 
-package aiss.model;
+package aiss.model.resources;
 
 import java.util.HashMap;
 import java.util.Map;
