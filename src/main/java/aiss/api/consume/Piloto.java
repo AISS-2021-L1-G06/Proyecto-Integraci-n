@@ -1,5 +1,5 @@
 
-package aiss.api.consume;
+package consume;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "victorias"
 })
 @Generated("jsonschema2pojo")
-public class PilotosResource {
+public class Piloto {
 
     @JsonProperty("id")
     private String id;
@@ -37,6 +37,32 @@ public class PilotosResource {
     private Integer victorias;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public Piloto() {
+    }
+
+    /**
+     * 
+     * @param dorsal
+     * @param victorias
+     * @param id
+     * @param nombre
+     * @param edad
+     * @param escuderia
+     */
+    public Piloto(String id, String escuderia, String nombre, Integer edad, Integer dorsal, Integer victorias) {
+        super();
+        this.id = id;
+        this.escuderia = escuderia;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.dorsal = dorsal;
+        this.victorias = victorias;
+    }
 
     @JsonProperty("id")
     public String getId() {
