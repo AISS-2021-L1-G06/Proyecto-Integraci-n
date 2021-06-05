@@ -2,7 +2,9 @@
 package aiss.api.consume;
 
 import java.util.HashMap;
+
 import java.util.List;
+
 import java.util.Map;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -35,7 +37,10 @@ public class CircuitosResource {
     @JsonProperty("fecha")
     private String fecha;
     @JsonProperty("pilotos")
-    private List<Piloto> pilotos = null;
+
+
+    private List<Piloto> pilotos;
+
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -90,11 +95,16 @@ public class CircuitosResource {
     }
 
     @JsonProperty("pilotos")
+
+  
+
     public List<Piloto> getPilotos() {
+
         return pilotos;
     }
 
     @JsonProperty("pilotos")
+
     public void setPilotos(List<Piloto> pilotos) {
         this.pilotos = pilotos;
     }

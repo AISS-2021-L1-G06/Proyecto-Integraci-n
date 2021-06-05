@@ -8,13 +8,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.restlet.resource.ResourceException;
 
+import aiss.api.consume.Piloto;
+import aiss.api.consume.PilotosResource;
 
-import aiss.model.resources.PilotosResource;
 
 public class PilotoResourceTest {
 
 	static Piloto piloto1, piloto2, piloto3;
-	static PilotoResource sr = new PilotoResource();
+	static PilotosResource sr = new PilotosResource();
 	
 	@BeforeClass
 	public static void setup() throws Exception {
