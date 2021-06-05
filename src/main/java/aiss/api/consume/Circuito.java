@@ -2,6 +2,7 @@
 package consume;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -14,27 +15,27 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
-    "escuderia",
     "nombre",
-    "edad",
-    "dorsal",
-    "victorias"
+    "canalEmision",
+    "ciudad",
+    "fecha",
+    "pilotos"
 })
 @Generated("jsonschema2pojo")
 public class Piloto {
 
     @JsonProperty("id")
     private String id;
-    @JsonProperty("escuderia")
-    private String escuderia;
     @JsonProperty("nombre")
     private String nombre;
-    @JsonProperty("edad")
-    private Integer edad;
-    @JsonProperty("dorsal")
-    private Integer dorsal;
-    @JsonProperty("victorias")
-    private Integer victorias;
+    @JsonProperty("canalEmision")
+    private String canalEmision;
+    @JsonProperty("ciudad")
+    private String ciudad;
+    @JsonProperty("fecha")
+    private String fecha;
+    @JsonProperty("pilotos")
+    private List<Piloto__1> pilotos = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -47,21 +48,21 @@ public class Piloto {
 
     /**
      * 
-     * @param dorsal
-     * @param victorias
+     * @param pilotos
+     * @param fecha
+     * @param ciudad
+     * @param canalEmision
      * @param id
      * @param nombre
-     * @param edad
-     * @param escuderia
      */
-    public Piloto(String id, String escuderia, String nombre, Integer edad, Integer dorsal, Integer victorias) {
+    public Piloto(String id, String nombre, String canalEmision, String ciudad, String fecha, List<Piloto__1> pilotos) {
         super();
         this.id = id;
-        this.escuderia = escuderia;
         this.nombre = nombre;
-        this.edad = edad;
-        this.dorsal = dorsal;
-        this.victorias = victorias;
+        this.canalEmision = canalEmision;
+        this.ciudad = ciudad;
+        this.fecha = fecha;
+        this.pilotos = pilotos;
     }
 
     @JsonProperty("id")
@@ -74,16 +75,6 @@ public class Piloto {
         this.id = id;
     }
 
-    @JsonProperty("escuderia")
-    public String getEscuderia() {
-        return escuderia;
-    }
-
-    @JsonProperty("escuderia")
-    public void setEscuderia(String escuderia) {
-        this.escuderia = escuderia;
-    }
-
     @JsonProperty("nombre")
     public String getNombre() {
         return nombre;
@@ -94,34 +85,44 @@ public class Piloto {
         this.nombre = nombre;
     }
 
-    @JsonProperty("edad")
-    public Integer getEdad() {
-        return edad;
+    @JsonProperty("canalEmision")
+    public String getCanalEmision() {
+        return canalEmision;
     }
 
-    @JsonProperty("edad")
-    public void setEdad(Integer edad) {
-        this.edad = edad;
+    @JsonProperty("canalEmision")
+    public void setCanalEmision(String canalEmision) {
+        this.canalEmision = canalEmision;
     }
 
-    @JsonProperty("dorsal")
-    public Integer getDorsal() {
-        return dorsal;
+    @JsonProperty("ciudad")
+    public String getCiudad() {
+        return ciudad;
     }
 
-    @JsonProperty("dorsal")
-    public void setDorsal(Integer dorsal) {
-        this.dorsal = dorsal;
+    @JsonProperty("ciudad")
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
-    @JsonProperty("victorias")
-    public Integer getVictorias() {
-        return victorias;
+    @JsonProperty("fecha")
+    public String getFecha() {
+        return fecha;
     }
 
-    @JsonProperty("victorias")
-    public void setVictorias(Integer victorias) {
-        this.victorias = victorias;
+    @JsonProperty("fecha")
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    @JsonProperty("pilotos")
+    public List<Piloto__1> getPilotos() {
+        return pilotos;
+    }
+
+    @JsonProperty("pilotos")
+    public void setPilotos(List<Piloto__1> pilotos) {
+        this.pilotos = pilotos;
     }
 
     @JsonAnyGetter
