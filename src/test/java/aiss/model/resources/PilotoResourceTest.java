@@ -7,14 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.restlet.resource.ResourceException;
 
-<<<<<<< HEAD
-import aiss.api.consume.Piloto;
-import aiss.api.consume.PilotoResource;
-import aiss.api.consume.Circuito;
-=======
-import aiss.api.consume.*;
 
->>>>>>> c88962e7584d0abf044b532c486423291a700898
+import aiss.api.consume.*;
 
 
 public class PilotoResourceTest {

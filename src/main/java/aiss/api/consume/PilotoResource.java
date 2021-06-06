@@ -10,7 +10,7 @@ import org.restlet.resource.ResourceException;
 
 public class PilotoResource {
 
-	private String uri = "https://api-aiss.ey.r.appspot.com/";
+	private String uri = "https://api-aiss.ey.r.appspot.com/api/pilotos";
 	//private String uri = "http://localhost:8095/api/songs";
 
 	
