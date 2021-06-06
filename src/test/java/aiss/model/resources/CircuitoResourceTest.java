@@ -8,8 +8,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.restlet.resource.ResourceException;
 
-import aiss.model.Circuito;
-import aiss.model.Piloto;
+import aiss.api.consume.CircuitoResource;
+import aiss.api.consume.PilotoResource;
+import aiss.api.consume.Piloto;
+import aiss.api.consume.Circuito;
 
 public class CircuitoResourceTest {
 
@@ -26,7 +28,7 @@ public class CircuitoResourceTest {
 		circuito3 = plr.addCircuito(new Circuito("Test list 3"));
 		
 	
-		piloto = sr.addPiloto(new Piloto("Test title","Test artist","Test album","2016"));
+		piloto = sr.addPiloto(new Piloto("Test nombre","Test canalEmision","Test ciudad","11/06/2020"));
 		if(piloto!=null)
 			plr.addPiloto(circuito.getId(), piloto.getId());
 	}
@@ -37,7 +39,7 @@ public class CircuitoResourceTest {
 		plr.deleteCircuito(circuito3.getId());
 		plr.deleteCircuito(circuito4.getId());
 		if(piloto!=null)
-			sr.deletePiloto(song.getId());
+			sr.deletePiloto(piloto.getId());
 	}
 
 	@Test
@@ -50,7 +52,7 @@ public class CircuitoResourceTest {
 		System.out.println("Listing all circuitos:");
 		int i=1;
 		for (Circuito pl : circuitos) {
-			System.out.println("Circuito " + i++ + " : " + pl.getName() + " (ID=" + pl.getId() + ")");
+			System.out.println("Circuito " + i++ + " : " + pl.getNombre() + " (ID=" + pl.getId() + ")");
 		}
 		
 	}
@@ -60,11 +62,11 @@ public class CircuitoResourceTest {
 		Circuito p = plr.getCircuito(circuito.getId());
 		
 		assertEquals("The id of the circuitos do not match", circuito.getId(), p.getId());
-		assertEquals("The name of the circuitos do not match", circuito.getName(), p.getName());
+		assertEquals("The name of the circuitos do not match", circuito.getNombre(), p.getNombre());
 		
 		// Show result
 		System.out.println("Circuito id: " +  p.getId());
-		System.out.println("Circuito name: " +  p.getName());
+		System.out.println("Circuito name: " +  p.getNombre());
 
 	}
 
@@ -75,41 +77,41 @@ public class CircuitoResourceTest {
 		
 		circuito4 = plr.addCircuito(new Circuito(circuitoName,circuitoDescription));
 		
-		assertNotNull("Error when adding the circuito", circuito4);
-		assertEquals("The circuito's name has not been setted correctly", circuitoName, circuito4.getName());
+		assertNotNull("Error añadiendo el circuito", circuito4);
+		assertEquals("El nombre del circuito no se ha establecido correctamente", circuitoName, circuito4.getNombre());
 		assertEquals("The circuito's description has not been setted correctly", circuitoDescription, circuito4.getDescription());
 	}
 
 	@Test
 	public void testUpdateCircuito() {
-		String circuitoName = "Updated circuito name";
+		String circuitoName = "Nombre del cicuito actualizado";
 
 		// Update circuito
-		circuito.setName(circuitoName);
+		circuito.setNombre(circuitoName);
 
 		boolean success = plr.updateCircuito(circuito);
 		
-		assertTrue("Error when updating the circuito", success);
+		assertTrue("Error actualizando el circuito", success);
 		
 		Circuito pl  = plr.getCircuito(circuito.getId());
-		assertEquals("The circuito's name has not been updated correctly", circuitoName, pl.getName());
+		assertEquals("El nombre del circuito no se ha actualizado correctamente", circuitoName, pl.getNombre());
 
 	}
 
 	@Test
 	public void testDeleteCircuito() {
 		boolean success = plr.deleteCircuito(circuito2.getId());
-		assertTrue("Error when deleting the circuito", success);
+		assertTrue("Error eliminando el circuito", success);
 		
 		Circuito pl = plr.getCircuito(circuito2.getId());
-		assertNull("The circuito has not been deleted correctly", pl);
+		assertNull("El circuito no se ha eliminado correctamente", pl);
 	}
 
 	@Test
 	public void testAddPiloto() {
 		if(piloto!=null) {
 			boolean success = plr.addPiloto(circuito3.getId(), piloto.getId());
-			assertTrue("Error when adding the piloto", success);
+			assertTrue("Error añadiendo el piloto", success);
 		}
 	}
 

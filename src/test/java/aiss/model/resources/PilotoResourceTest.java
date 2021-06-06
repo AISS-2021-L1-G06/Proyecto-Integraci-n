@@ -7,14 +7,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.restlet.resource.ResourceException;
 
-import consume.Piloto;
-
+import aiss.api.consume.Piloto;
+import aiss.api.consume.PilotoResource;
+import aiss.api.consume.Circuito;
 
 
 public class PilotoResourceTest {
 
 	static Piloto piloto1, piloto2, piloto3;
-	static PilotosResource sr = new PilotosResource();
+	static PilotoResource sr = new PilotoResource();
 	
 	@BeforeClass
 	public static void setup() throws Exception {
