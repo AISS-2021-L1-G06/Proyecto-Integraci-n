@@ -37,7 +37,7 @@ public class CircuitoResource {
 			list = cr.get(Circuito.class);
 			
 		} catch (ResourceException re) {
-			System.err.println("Error when retrieving the playlist: " + cr.getResponse().getStatus());
+			System.err.println("Error cuando obtienes el circuito" + cr.getResponse().getStatus());
 		}
 		
 		return list;
@@ -48,17 +48,17 @@ public class CircuitoResource {
 	public Circuito addCircuito(Circuito c) {
 		
 		ClientResource cr = null;
-		Circuito resultPlaylist = null;
+		Circuito resultCircuito = null;
 		try {
 			cr = new ClientResource(uri);
 			cr.setEntityBuffering(true);		// Needed for using RESTlet from JUnit tests
-			resultPlaylist = cr.post(c,Circuito.class);
+			resultCircuito = cr.post(c,Circuito.class);
 			
 		} catch (ResourceException re) {
-			System.err.println("Error when adding the playlist: " + cr.getResponse().getStatus());
+			System.err.println("Error cuando añades el circuito" + cr.getResponse().getStatus());
 		}
 		
-		return resultPlaylist;
+		return resultCircuito;
 	}
 	
 
@@ -72,7 +72,7 @@ public class CircuitoResource {
 			
 			
 		} catch (ResourceException re) {
-			System.err.println("Error when updating the playlist: " + cr.getResponse().getStatus());
+			System.err.println("Error cuando actualizas el circuito: " + cr.getResponse().getStatus());
 			success = false;
 		}
 		
@@ -89,7 +89,7 @@ public class CircuitoResource {
 			cr.delete();
 			
 		} catch (ResourceException re) {
-			System.err.println("Error when deleting the playlist: " + cr.getResponse().getStatus());
+			System.err.println("Error cuando borras un circuito " + cr.getResponse().getStatus());
 			success = false;
 		}
 		
@@ -97,14 +97,31 @@ public class CircuitoResource {
 	}
 	
 	public boolean addPiloto(String circuitoId, String pilotoId) {
-		// TODO
-		// Use	cr.post(" ") to avoid RESTlet crashing
-		return false;
+		boolean result = false;
+		ClientResource cr = null;
+		try {
+			cr = new ClientResource(uri+"/"+circuitoId+"/"+pilotoId);
+			cr.post(" ");
+			result=true;
+		} catch (ResourceException re) {
+			System.out.println("Error al añadir piloto");
+		}
+		
+		return result;
 		
 	}
 	
 	public boolean removePiloto(String circuitoId, String pilotoId) {
-		// TODO
-		return false;
+		boolean result = false;
+		ClientResource cr = null;
+		try {
+			cr = new ClientResource(uri+"/"+circuitoId+"/"+pilotoId);
+			cr.delete();
+			result=true;
+		} catch (ResourceException re) {
+			System.out.println("Error al borrar el piloto: "+re.getStatus());
+		}
+		
+		return result;
 	}
 }
