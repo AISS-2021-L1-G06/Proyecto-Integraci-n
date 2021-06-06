@@ -8,23 +8,23 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.restlet.resource.ResourceException;
 
-import consume.Piloto;
+import aiss.api.consume.*;
 
 
 
 public class PilotoResourceTest {
 
 	static Piloto piloto1, piloto2, piloto3;
-	static PilotosResource sr = new PilotosResource();
+	static PilotoResource sr = new PilotoResource();
 	
 	@BeforeClass
 	public static void setup() throws Exception {
 		
 		// Test Piloto 1
-		piloto1 = sr.addPiloto(new Piloto("Test escuderia","Test nombre","45","45", "3"));
+		piloto1 = sr.addPiloto(new Piloto("Test escuderia","Test nombre",45,45, 3));
 		
 		// Test Piloto 2
-		piloto2 = sr.addPiloto(new Piloto("Test escuderia 2","Test nombre 2","2","653", "62"));
+		piloto2 = sr.addPiloto(new Piloto("Test escuderia 2","Test nombre 2",2,653, 62));
 		
 	}
 
@@ -50,7 +50,7 @@ public class PilotoResourceTest {
 
 	@Test
 	public void testGetPiloto() {
-		Piloto piloto = sr.getPiloto("s3");
+		Piloto piloto = sr.getPiloto("p0");
 		
 		assertNotNull(piloto);
 		
@@ -67,7 +67,7 @@ public class PilotoResourceTest {
 	@Test
 	public void testAddPiloto() {
 		
-		Piloto piloto = new Piloto("Entre dos aguas", "Paco de Lucía", "Entre dos aguas", "1979");
+		Piloto piloto = new Piloto("Test escuderia","Test nombre",45,45, 3);
 		Piloto added = sr.addPiloto(piloto);
 		
 		assertNotNull(added);
@@ -84,9 +84,9 @@ public class PilotoResourceTest {
 		
 		String pilotoEscuderia = "Update piloto test escuderia";
 		String pilotoNombre = "Update piloto test nombre";
-		String pilotoEdad = "25";
-		String pilotoDorsal = "164";
-		String pilotoVictorias = "199";
+		Integer pilotoEdad = 25;
+		Integer pilotoDorsal = 164;
+		Integer pilotoVictorias = 199;
 		
 		// Update piloto
 		piloto1.setEscuderia(pilotoEscuderia);
@@ -100,11 +100,11 @@ public class PilotoResourceTest {
 		assertTrue("Error when updating the piloto", success);
 		
 		Piloto piloto  = sr.getPiloto(piloto1.getId());
-		assertEquals("The piloto's escuderia has not been updated correctly", pilotoEscuderia, piloto.getEscuderia());
-		assertEquals("The piloto's nombre has not been updated correctly", pilotoNombre, piloto.getNombre());
-		assertEquals("The piloto's edad has not been updated correctly", pilotoEdad, piloto.getEdad());
-		assertEquals("The piloto's dorsal has not been updated correctly", pilotoDorsal, piloto.getDorsal());
-		assertEquals("The piloto's victorias has not been updated correctly", pilotoVictorias, piloto.getVictorias());
+		assertEquals("La escuderia del piloto no ha sido actualizada correctamente", pilotoEscuderia, piloto.getEscuderia());
+		assertEquals("El nombre del piloto no ha sido actualizado correctamente", pilotoNombre, piloto.getNombre());
+		assertEquals("La edad del piloto no ha sido actualizada correctamente", pilotoEdad, piloto.getEdad());
+		assertEquals("El dorsal del piloto no ha sido actualizado correctamente", pilotoDorsal, piloto.getDorsal());
+		assertEquals("Las victorias del piloto no han sido actualizadas correctamente", pilotoVictorias, piloto.getVictorias());
 	}
 
 	@Test(expected = ResourceException.class)
