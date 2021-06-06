@@ -66,6 +66,25 @@ public class Circuito{
         this.fecha = fecha;
         this.pilotos = pilotos;
     }
+    
+    public Circuito(String nombre, String canalEmision, String ciudad, String fecha,
+    		List<Piloto> pilotos) {
+        super();
+        this.nombre = nombre;
+        this.canalEmision = canalEmision;
+        this.ciudad = ciudad;
+        this.fecha = fecha;
+        this.pilotos = pilotos;
+    }
+    public Circuito(String nombre) {
+        super();
+        this.nombre = nombre;
+    }
+    public Circuito(String nombre, String canalEmision) {
+        super();
+        this.nombre = nombre;
+        this.canalEmision = canalEmision;
+    }
 
     @JsonProperty("id")
     public String getId() {

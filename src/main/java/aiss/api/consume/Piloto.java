@@ -63,6 +63,15 @@ public class Piloto {
         this.dorsal = dorsal;
         this.victorias = victorias;
     }
+    
+    public Piloto(String escuderia, String nombre, Integer edad, Integer dorsal, Integer victorias) {
+        super();
+        this.escuderia = escuderia;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.dorsal = dorsal;
+        this.victorias = victorias;
+    }
 
     @JsonProperty("id")
     public String getId() {

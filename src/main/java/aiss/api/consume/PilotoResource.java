@@ -8,7 +8,6 @@ import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
 
-
 public class PilotoResource {
 
 	private String uri = "https://api-aiss.ey.r.appspot.com/";
@@ -17,35 +16,61 @@ public class PilotoResource {
 	
 	public Collection<Piloto> getAll() {
 		ClientResource cr = null;
-		Piloto [] songs = null;
+		Piloto [] pilotos = null;
 		try {
 			cr = new ClientResource(uri);
-			songs = cr.get(Piloto[].class);
+			pilotos = cr.get(Piloto[].class);
 			
 		} catch (ResourceException re) {
-			System.err.println("Error when retrieving all songs: " + cr.getResponse().getStatus());
+			System.err.println("Error cuando obtienes todos los pilotos: " + cr.getResponse().getStatus());
 			throw re;
 		}
 		
-		return Arrays.asList(songs);
+		return Arrays.asList(pilotos);
 	}
 	
 
 	public Piloto getPiloto(String pilotoId) {
-		//TODO
-		return null;
+		ClientResource cr = null;
+		Piloto piloto = null;
+		try {
+			cr = new ClientResource(uri + "/" + pilotoId);
+			piloto = cr.get(Piloto.class);
+			
+		} catch (ResourceException re) {
+			System.err.println("Error cuando obtienes el piloto: " + cr.getResponse().getStatus());
+		}
+		
+		return piloto;
 	}
 	
 
 	public Piloto addPiloto(Piloto piloto) {
-		// TODO
-		return null;
+		ClientResource cr = new ClientResource(uri);
+		Piloto result = null;
+		try { 
+			result = cr.post(piloto, Piloto.class);
+		} catch (ResourceException re) {
+			System.err.println("Error cuando añades el piloto: " + cr.getResponse().getStatus());
+
+		}
+		return result;
+
 
 	}
 	
 	public boolean updatePiloto(Piloto piloto) {
-		// TODO
-		return false;
+		boolean result = false;
+		ClientResource cr = new ClientResource(uri);
+		try {
+			cr.put(piloto);	
+			result = true;
+		} catch (ResourceException re){
+			System.err.println("Error cuando modificas al piloto: " + cr.getResponse().getStatus());
+
+		}
+		
+		return result;
 	}
 	
 
@@ -58,7 +83,7 @@ public class PilotoResource {
 			cr.delete();
 			
 		} catch (ResourceException re) {
-			System.err.println("Error when deleting the piloto: " + cr.getResponse().getStatus());
+			System.err.println("Error cuando borras al piloto " + cr.getResponse().getStatus());
 			success = false;
 			throw re;
 		}

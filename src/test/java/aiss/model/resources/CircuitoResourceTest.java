@@ -28,7 +28,7 @@ public class CircuitoResourceTest {
 		circuito3 = plr.addCircuito(new Circuito("Test list 3"));
 		
 	
-		piloto = sr.addPiloto(new Piloto("Test nombre","Test canalEmision","Test ciudad","11/06/2020"));
+		piloto = sr.addPiloto(new Piloto("Test escuderia","Test nombre",65,5, 4));
 		if(piloto!=null)
 			plr.addPiloto(circuito.getId(), piloto.getId());
 	}
@@ -72,14 +72,14 @@ public class CircuitoResourceTest {
 
 	@Test
 	public void testAddCircuito() {
-		String circuitoName = "Add circuito test title";
-		String circuitoDescription = "Add circuito test description";
+		String circuitoName = "Añadir nombre del circuito";
+		String circuitoCanalEmision = "Añadir canal de emisión";
 		
-		circuito4 = plr.addCircuito(new Circuito(circuitoName,circuitoDescription));
+		circuito4 = plr.addCircuito(new Circuito(circuitoName,circuitoCanalEmision));
 		
 		assertNotNull("Error añadiendo el circuito", circuito4);
 		assertEquals("El nombre del circuito no se ha establecido correctamente", circuitoName, circuito4.getNombre());
-		assertEquals("The circuito's description has not been setted correctly", circuitoDescription, circuito4.getDescription());
+		assertEquals("The circuito's description has not been setted correctly", circuitoCanalEmision, circuito4.getCanalEmision());
 	}
 
 	@Test
