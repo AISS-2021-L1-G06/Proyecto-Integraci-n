@@ -31,13 +31,13 @@ public class PilotoResource {
 	}
 	
 
-	public Piloto getSong(String pilotoId) {
+	public Piloto getPiloto(String pilotoId) {
 		//TODO
 		return null;
 	}
 	
 
-	public Piloto addSong(Song piloto) {
+	public Piloto addPiloto(Piloto piloto) {
 		// TODO
 		return null;
 
