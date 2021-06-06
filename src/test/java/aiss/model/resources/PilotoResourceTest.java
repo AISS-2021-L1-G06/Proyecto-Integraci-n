@@ -7,8 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.restlet.resource.ResourceException;
 
-import aiss.api.consume.Piloto;
-import aiss.api.consume.PilotosResource;
+import consume.Piloto;
+
 
 
 public class PilotoResourceTest {

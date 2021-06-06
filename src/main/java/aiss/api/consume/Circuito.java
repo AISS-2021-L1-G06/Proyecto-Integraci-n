@@ -1,5 +1,5 @@
 
-package consume;
+package aiss.api.consume;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "id",
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
     "pilotos"
 })
 @Generated("jsonschema2pojo")
-public class Piloto {
+public class Circuito{
 
     @JsonProperty("id")
     private String id;
@@ -35,7 +36,7 @@ public class Piloto {
     @JsonProperty("fecha")
     private String fecha;
     @JsonProperty("pilotos")
-    private List<Piloto__1> pilotos = null;
+    private List<Piloto> pilotos = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -43,7 +44,7 @@ public class Piloto {
      * No args constructor for use in serialization
      * 
      */
-    public Piloto() {
+    public Circuito() {
     }
 
     /**
@@ -55,7 +56,8 @@ public class Piloto {
      * @param id
      * @param nombre
      */
-    public Piloto(String id, String nombre, String canalEmision, String ciudad, String fecha, List<Piloto__1> pilotos) {
+    public Circuito(String id, String nombre, String canalEmision, String ciudad, String fecha,
+    		List<Piloto> pilotos) {
         super();
         this.id = id;
         this.nombre = nombre;
@@ -116,12 +118,12 @@ public class Piloto {
     }
 
     @JsonProperty("pilotos")
-    public List<Piloto__1> getPilotos() {
+    public List<Piloto> getPilotos() {
         return pilotos;
     }
 
     @JsonProperty("pilotos")
-    public void setPilotos(List<Piloto__1> pilotos) {
+    public void setPilotos(List<Piloto> pilotos) {
         this.pilotos = pilotos;
     }
 
