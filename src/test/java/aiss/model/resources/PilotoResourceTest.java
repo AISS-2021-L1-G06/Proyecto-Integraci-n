@@ -1,4 +1,4 @@
-package aiss.model.resources;
+/*package aiss.model.resources;
 
 import static org.junit.Assert.*;
 import java.util.Collection;
@@ -118,4 +118,4 @@ public class PilotoResourceTest {
 		assertNull("The piloto has not been deleted correctly", piloto);
 	}
 
-}
+}*/
